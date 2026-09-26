@@ -26,31 +26,26 @@
 
 
 var nums = [0, 1, 1, 1, 1, 1, 0, 0, 0]
-//-1 + 1
+// khi check là 0 thì = -1 , 1 == 1
 
-//2.
-//[1,1,1,0,0,0]
-//6
+//dùng hashmap và check dùng index + thêm cho 1
 
 function findMaxLength(nums) {
-    let mp = new Map();
-    let sum = 0;
-    let subArrayLength = 0;
-    for (let i = 0; i < nums.length; i++) {
-        sum += nums[i] === 0 ? -1 : 1;
-        if (sum === 0) {
-            subArrayLength = i + 1;
-            console.log('sub', subArrayLength);
+    const data = new Map()
+    let sumTotal = 0, maxLength = 0
 
-        } else if (mp.has(sum)) {
-            subArrayLength = Math.max(subArrayLength, i - mp.get(sum));
-            console.log('hash', subArrayLength);
-            console.log('key , value', i, mp.get(sum), i - mp.get(sum));
+    for (let i = 0; i < nums.length; i++) {
+        sumTotal += nums[i] == 0 ? - 1 : 1
+
+        if (sumTotal == 0) maxLength = i + 1
+        else if (data.has(sumTotal)) {
+            maxLength = Math.max(maxLength, i - data.get(sumTotal))
         } else {
-            mp.set(sum, i);
+            data.set(sumTotal, i)
         }
     }
-    return subArrayLength;
+    return maxLength
+
 
 }
 
